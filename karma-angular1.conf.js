@@ -14,10 +14,10 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test.e2e/test-main.js',
+      'test.e2e/angular1/test-main.js',
       { pattern: 'node_modules/chai/**/*.js', included: false },
       { pattern: 'node_modules/angular*/**/*.js', included: false },
-      { pattern: 'test.e2e/**/*.js', included: false },
+      { pattern: 'test.e2e/angular1/**/*.js', included: false },
 
       // Include lib/ files to let Karma watch for changes there
       { pattern: 'lib/**/*.js', included: false }
@@ -48,7 +48,12 @@ module.exports = function(config) {
 
 
     // level of logging
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    // possible values: 
+    //    config.LOG_DISABLE 
+    //    config.LOG_ERROR
+    //    config.LOG_WARN 
+    //    config.LOG_INFO 
+    //    config.LOG_DEBUG
     logLevel: config.LOG_INFO,
 
 

@@ -17,8 +17,8 @@ requirejs.config({
     angular: 'node_modules/angular/angular',
     angularResource: 'node_modules/angular-resource/angular-resource',
     angularMocks: 'node_modules/angular-mocks/angular-mocks',
-    given: 'test.e2e/given',
-    util: 'test.e2e/util'
+    given: 'test.e2e/angular1/given',
+    util: 'test.e2e/angular1/util'
   },
 
   shim: {
