@@ -48,7 +48,7 @@
     "loopback-datasource-juggler": "^2.0",
     "mocha": "~1.18.0",
     "morgan": "^1.2",
-    "phantomjs": "^1.9.19",
+    "phantomjs": "^2.1.7",
     "requirejs": "^2.1.9"
   }
 }
