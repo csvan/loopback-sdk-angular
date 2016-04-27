@@ -6,7 +6,8 @@
   "scripts": {
     "prepublish": "node ./apidocs/describe-builtin-models.js",
     "pretest": "jshint .",
-    "test": "node ./test.e2e/test-server.js node node_modules/karma/bin/karma start ./karma-angular1.conf.js --single-run --browsers PhantomJS"
+    "test-ng1": "node ./test.e2e/test-server.js node node_modules/karma/bin/karma start ./karma-angular1.conf.js --single-run --browsers PhantomJS",
+    "test-ng2": "node ./test.e2e/test-server.js node node_modules/karma/bin/karma start ./karma-angular2.conf.js --single-run --browsers PhantomJS"
   },
   "repository": {
     "type": "git",

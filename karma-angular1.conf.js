@@ -7,10 +7,8 @@ module.exports = function(config) {
     // base path, that will be used to resolve files and exclude
     basePath: '',
 
-
     // frameworks to use
     frameworks: ['mocha', 'requirejs'],
-
 
     // list of files / patterns to load in the browser
     files: [
@@ -28,7 +26,6 @@ module.exports = function(config) {
       // 'test/**/*.js'
     ],
 
-
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
     reporters: ['mocha', 'junit'],
@@ -38,14 +35,11 @@ module.exports = function(config) {
       outputFile: 'karma-xunit.xml'
     },
 
-
     // web server port
     port: 9876,
-
-
+    
     // enable / disable colors in the output (reporters and logs)
     colors: true,
-
 
     // level of logging
     // possible values: 
@@ -56,10 +50,8 @@ module.exports = function(config) {
     //    config.LOG_DEBUG
     logLevel: config.LOG_INFO,
 
-
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
-
 
     // Start these browsers, currently available:
     // - Chrome
@@ -71,10 +63,8 @@ module.exports = function(config) {
     // - IE (only Windows; has to be installed with `npm install karma-ie-launcher`)
     browsers: ['Chrome'],
 
-
     // If browser does not capture in given timeout [ms], kill it
     captureTimeout: 5000,
-
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
