@@ -56,34 +56,39 @@ define(['angular', 'angularMocks', 'angularResource'], function(angular) {
     options.name = generateUniqueServiceName(options.name);
 
     var promise = callSetup(options)
-      .then(function(config) { return config.servicesUrl; })
-      .then(injectScriptAtUrl)
-      .then(function() {
-        return function createTestInjector() {
-          var injector = angular.injector(['ng', 'ngMockE2E', options.name]);
-          // Setup the mocked http provider to pass all $http requests
-          // to our LoopBack server
-          var $httpBackend = injector.get('$httpBackend');
-          ['GET', 'POST', 'PUT', 'DELETE', 'HEAD'].forEach(function(method) {
-            $httpBackend.when(method).passThrough();
-          });
-          return injector;
-        };
-      });
+        .then(function(config) {
+          return config.servicesUrl;
+        })
+        .then(injectScriptAtUrl)
+        .then(function() {
+          return function createTestInjector() {
+            var injector = angular.injector(['ng', 'ngMockE2E', options.name]);
+            // Setup the mocked http provider to pass all $http requests
+            // to our LoopBack server
+            var $httpBackend = injector.get('$httpBackend');
+            ['GET', 'POST', 'PUT', 'DELETE', 'HEAD'].forEach(function(method) {
+              $httpBackend.when(method).passThrough();
+            });
+            return injector;
+          };
+        });
 
-    if (cb)
-      promise.then(function($injector) { cb(null, $injector); }, cb);
+    if(cb)
+      promise.then(function($injector) {
+        cb(null, $injector);
+      }, cb);
 
     return promise;
   };
 
   var namesUsed = {};
+
   function generateUniqueServiceName(base) {
-    if (!base) base = getFullSpecName() || 'lbServices';
+    if(!base) base = getFullSpecName() || 'lbServices';
 
     var candidate = base;
     var counter = 0;
-    while (namesUsed[candidate]) {
+    while(namesUsed[candidate]) {
       candidate = base + '-' + counter;
     }
     namesUsed[candidate] = true;
@@ -94,16 +99,16 @@ define(['angular', 'angularMocks', 'angularResource'], function(angular) {
     var names = [];
 
     var spec = currentSpec ?
-      currentSpec.currentTest || currentSpec.test :
-      window.mocha.suite.ctx.test;
+    currentSpec.currentTest || currentSpec.test :
+        window.mocha.suite.ctx.test;
 
-    if (spec && spec.ctx && spec.ctx.currentTest) {
+    if(spec && spec.ctx && spec.ctx.currentTest) {
       names.unshift(spec.ctx.currentTest.title);
       spec = spec.parent;
     }
 
-    while (spec) {
-      if (spec.title)
+    while(spec) {
+      if(spec.title)
         names.unshift(spec.title);
       spec = spec.parent;
     }
@@ -118,8 +123,8 @@ define(['angular', 'angularMocks', 'angularResource'], function(angular) {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(options));
     xhr.onreadystatechange = function() {
-      if (xhr.readyState != 4) return;
-      if (xhr.status != 200) {
+      if(xhr.readyState != 4) return;
+      if(xhr.status != 200) {
         deferred.reject(new Error('Cannot build LB App: ' + xhr.status));
       }
       deferred.resolve(JSON.parse(xhr.responseText));

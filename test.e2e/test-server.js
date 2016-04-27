@@ -1,8 +1,8 @@
 /*
-The test server is an HTTP service allowing
-front-end tests running in a browser to setup
-a custom LoopBack instance and generate & access lb-services.js
-*/
+ The test server is an HTTP service allowing
+ front-end tests running in a browser to setup
+ a custom LoopBack instance and generate & access lb-services.js
+ */
 
 var express = require('express');
 var loopback = require('loopback');
@@ -37,30 +37,30 @@ masterApp.use(bodyParser.json());
 masterApp.use(morgan('dev'));
 
 /*!
-Sample request
-{
-  name: 'lbServices',
-  models: {
-    Customer: {
-      properties: {
-        name: 'string',
-        // other properties
-      },
-      options: {
-      }
-    }
-    // other model objects
-  },
-  setupFn: (function(app, cb) {
-    Customer.create(
-      { name: 'a-customer' },
-      function(err, customer) {
-        if (err) return cb(err);
-        cb(null, { customer: customer });
-      });
-  }).toString()
-}
-*/
+ Sample request
+ {
+ name: 'lbServices',
+ models: {
+ Customer: {
+ properties: {
+ name: 'string',
+ // other properties
+ },
+ options: {
+ }
+ }
+ // other model objects
+ },
+ setupFn: (function(app, cb) {
+ Customer.create(
+ { name: 'a-customer' },
+ function(err, customer) {
+ if (err) return cb(err);
+ cb(null, { customer: customer });
+ });
+ }).toString()
+ }
+ */
 masterApp.post('/setup', function(req, res, next) {
   var opts = req.body;
   var name = opts.name;
@@ -68,10 +68,10 @@ masterApp.post('/setup', function(req, res, next) {
   var enableAuth = opts.enableAuth;
   var setupFn = compileSetupFn(name, opts.setupFn);
 
-  if (!name)
+  if(!name)
     return next(new Error('"name" is a required parameter'));
 
-  if (!models || typeof models !== 'object')
+  if(!models || typeof models !== 'object')
     return next(new Error('"models" must be a valid object'));
 
   // hack: clear the static model registry populated by previous test apps
@@ -83,7 +83,7 @@ masterApp.post('/setup', function(req, res, next) {
   lbApp.dataSource('db', { connector: 'memory', defaultForType: 'db' });
   lbApp.dataSource('mail', { connector: 'mail', defaultForType: 'mail' });
 
-  for (var m in models) {
+  for(var m in models) {
     models[m].dataSource = 'db';
     var model = initialModels[m];
     lbApp.model(model || m, models[m]);
@@ -91,14 +91,14 @@ masterApp.post('/setup', function(req, res, next) {
 
   loopback.autoAttach();
 
-  if (enableAuth)
+  if(enableAuth)
     lbApp.enableAuth();
 
   lbApp.set('restApiRoot', '/');
   lbApp.use(lbApp.get('restApiRoot'), loopback.rest());
 
   setupFn(lbApp, function(err, data) {
-    if (err) {
+    if(err) {
       console.error('app setup function failed', err);
       res.send(500, err);
       return;
@@ -106,13 +106,13 @@ masterApp.post('/setup', function(req, res, next) {
 
     try {
       servicesScript = generator.services(lbApp, name, apiUrl);
-    } catch (err) {
+    } catch(err) {
       console.error('Cannot generate services script:', err.stack);
       servicesScript = 'throw new Error("Error generating services script.");';
     }
 
     servicesScript += '\nangular.module(' + JSON.stringify(name) + ')' +
-      '.value("testData", ' + JSON.stringify(data, null, 2) + ');\n';
+        '.value("testData", ' + JSON.stringify(data, null, 2) + ');\n';
 
     res.send(200, { servicesUrl: baseUrl + 'services?' + name });
   }.bind(this));
@@ -120,8 +120,10 @@ masterApp.post('/setup', function(req, res, next) {
 });
 
 function compileSetupFn(name, source) {
-  if (!source)
-    return function(app, cb) { cb(); };
+  if(!source)
+    return function(app, cb) {
+      cb();
+    };
 
   var debug = require('debug')('test:' + name);
   /*jshint evil:true */
@@ -146,7 +148,7 @@ masterApp.listen(port, function() {
   console.log('Test server is listening on %s', baseUrl);
   apiUrl = baseUrl + 'api';
 
-  if (process.argv.length > 2)
+  if(process.argv.length > 2)
     runAndExit(process.argv[2], process.argv.slice(3));
 });
 
