@@ -8,7 +8,7 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha'],
+    frameworks: ['jasmine'],
 
     // list of files / patterns to load in the browser
     files: [
@@ -23,7 +23,7 @@ module.exports = function(config) {
 
       { pattern: 'node_modules/angular2/**/*.js', included: false, watched: false },
       { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
-      { pattern: 'dist/dev/**/*.js', included: false, watched: true },
+      { pattern: 'test.e2e/angular2/**/*.js', included: false, watched: true },
 
       // PhantomJS2 (and possibly others) might require it
       {

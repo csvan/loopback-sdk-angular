@@ -7,7 +7,11 @@
     "prepublish": "node ./apidocs/describe-builtin-models.js",
     "pretest": "jshint .",
     "test-ng1": "node ./test.e2e/test-server.js node node_modules/karma/bin/karma start ./karma-angular1.conf.js --single-run --browsers PhantomJS",
-    "test-ng2": "node ./test.e2e/test-server.js node node_modules/karma/bin/karma start ./karma-angular2.conf.js --single-run --browsers PhantomJS"
+    "test-ng2": "node ./test.e2e/test-server.js node node_modules/karma/bin/karma start ./karma-angular2.conf.js --single-run --browsers PhantomJS",
+    "postinstall": "typings install",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "typings": "typings"
   },
   "repository": {
     "type": "git",
@@ -60,6 +64,12 @@
     "systemjs-builder": "^0.15.14",
     "traceur": "^0.0.91",
     "walk": "^2.3.9",
-    "yargs": "^4.2.0"
+    "yargs": "^4.2.0",
+    "es6-module-loader": "^0.17.8",
+    "typescript": "^1.8.10",
+    "typings": "^0.8.1",
+    "karma-jasmine": "~0.3.8",
+    "jasmine-core": "~2.4.1",
+    "jasmine-spec-reporter": "^2.4.0"
   }
 }

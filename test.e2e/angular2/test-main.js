@@ -35,10 +35,13 @@ Promise.all([
   System.import('angular2/platform/testing/browser'),
   System.import('angular2/testing')
 ]).then(function(modules) {
+
   var browser_adapter = modules[0];
   var providers = modules[1];
   var testing = modules[2];
-  testing.setBaseTestProviders(providers.TEST_BROWSER_PLATFORM_PROVIDERS,
+
+  testing.setBaseTestProviders(
+      providers.TEST_BROWSER_PLATFORM_PROVIDERS,
       providers.TEST_BROWSER_APPLICATION_PROVIDERS);
 
   browser_adapter.BrowserDomAdapter.makeCurrent();
@@ -48,6 +51,7 @@ Promise.all([
               .filter(onlySpecFiles)
               .map(file2moduleName)
               .map(function(path) {
+                console.log('HERE', path);
                 return System.import(path).then(function(module) {
                   if(module.hasOwnProperty('main')) {
                     module.main();
@@ -65,6 +69,7 @@ Promise.all([
     });
 
 function onlySpecFiles(path) {
+
   // check for individual files, if not given, always matches to all
   var patternMatched = __karma__.config.files ?
       path.match(new RegExp(__karma__.config.files)) : true;
@@ -74,6 +79,7 @@ function onlySpecFiles(path) {
 
 // Normalize paths to module names.
 function file2moduleName(filePath) {
+  console.log(filePath);
   return filePath.replace(/\\/g, '/')
       .replace(/^\/base\//, '')
       .replace(/\.js$/, '');
